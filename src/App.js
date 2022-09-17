@@ -13,11 +13,10 @@ function App() {
 	// let [글제목2, set글제목2] = useState('이대 우동 맛집');
 	// let [글제목3, set글제목3] = useState('JavaScript 독학');
 	let [글제목, set글제목] = useState(['여자 코트 추천', '강남 우동 맛집', '프론트엔드 독학']);
-
 	let [따봉, set따봉] = useState(0);
-	var name = '안녕';
+	let [modal, setModal] = useState(false);
 
-	function likeThis() {
+	function 좋아요() {
 		set따봉(따봉 + 1);
 	}
 
@@ -49,7 +48,7 @@ function App() {
       </div> */}
 			<div className="list">
 				<h4>
-					{글제목[0]} <span onClick={글제목정렬}>🧡</span> {따봉}
+					{글제목[0]} <span onClick={좋아요}>🧡</span> {따봉}
 				</h4>
 				<p>2월 17일 발행</p>
 			</div>
@@ -58,11 +57,12 @@ function App() {
 				<p>2월 17일 발행</p>
 			</div>
 			<div className="list">
-				<h4>{글제목[2]}</h4>
+				<h4 onClick={() => setModal(!modal)}>{글제목[2]}</h4>
 				<p>2월 17일 발행</p>
 			</div>
 			{/* <List /> */}
-			<Modal></Modal>
+
+			{modal ? <Modal /> : null}
 		</div>
 	);
 }
