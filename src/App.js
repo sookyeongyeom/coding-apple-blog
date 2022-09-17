@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import './App.css';
+import React from 'react';
 
 function App() {
 	// 자료 잠깐 저장할 땐 변수
@@ -145,6 +146,7 @@ function App() {
 					<Modal 글제목={글제목} color='orange' 남자코트로변경={남자코트로변경} title={title} />
 				) : null
 			}
+			<Modal2 />
 		</div>
 	);
 }
@@ -167,6 +169,31 @@ function Modal(props) {
 			<button onClick={props.남자코트로변경}>글수정</button>
 		</div>
 	);
+}
+
+// Class Component
+class Modal2 extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: 'choco',
+			age: 20,
+		};
+	}
+	render() {
+		return (
+			<div>
+				안녕 {this.state.age}살의 {this.state.name}!{' '}
+				<button
+					onClick={() => {
+						this.setState({ age: 25 });
+					}}
+				>
+					20살 아닌디
+				</button>
+			</div>
+		);
+	}
 }
 
 export default App;
