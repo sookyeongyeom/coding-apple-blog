@@ -13,11 +13,13 @@ function App() {
 	// let [글제목2, set글제목2] = useState('이대 우동 맛집');
 	// let [글제목3, set글제목3] = useState('JavaScript 독학');
 	let [글제목, set글제목] = useState(['여자 코트 추천', '강남 우동 맛집', '프론트엔드 독학']);
-	let [따봉, set따봉] = useState(0);
+	let [따봉, set따봉] = useState([0, 0, 0]);
 	let [modal, setModal] = useState(false);
 
-	function 좋아요() {
-		set따봉(따봉 + 1);
+	function 좋아요(i) {
+		let copy = [...따봉];
+		copy[i] = 따봉[i] + 1;
+		set따봉(copy);
 	}
 
 	function 남자코트로변경() {
@@ -46,7 +48,7 @@ function App() {
           <button onClick={글제목정렬}>글제목 정렬</button>{' '}
         </p>
       </div> */}
-			<div className="list">
+			{/* <div className="list">
 				<h4>
 					{글제목[0]} <span onClick={좋아요}>🧡</span> {따봉}
 				</h4>
@@ -59,22 +61,38 @@ function App() {
 			<div className="list">
 				<h4 onClick={() => setModal(!modal)}>{글제목[2]}</h4>
 				<p>2월 17일 발행</p>
-			</div>
-			{/* <List /> */}
+			</div> */}
 
-			{modal ? <Modal /> : null}
+			{
+				//
+				글제목.map((v, i) => {
+					return (
+						<div className="list" key={i}>
+							<h4>
+								{v} <span onClick={() => 좋아요(i)}>🧡</span> {따봉[i]}
+							</h4>
+							<p>2월 17일 발행</p>
+						</div>
+					);
+				})
+			}
+
+			{
+				//
+				modal ? <Modal /> : null
+			}
 		</div>
 	);
 }
 
-// function List() {
-// 	return (
-// 		<div className="list">
-// 			<h4>제목</h4>
-// 			<p>2월 17일 발행</p>
-// 		</div>
-// 	);
-// }
+function List() {
+	return (
+		<div className="list">
+			<h4>제목</h4>
+			<p>2월 17일 발행</p>
+		</div>
+	);
+}
 
 function Modal() {
 	return (
