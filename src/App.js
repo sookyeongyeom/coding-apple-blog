@@ -14,6 +14,7 @@ function App() {
 	// let [글제목3, set글제목3] = useState('JavaScript 독학');
 	let [글제목, set글제목] = useState(['여자 코트 추천', '강남 우동 맛집', '프론트엔드 독학']);
 	let [따봉, set따봉] = useState([0, 0, 0]);
+	let [날짜, set날짜] = useState(['2022.09.16', '2022.09.15', '2022.09.14']);
 	let [modal, setModal] = useState(false);
 	let [title, setTitle] = useState(0);
 	let [입력값, set입력값] = useState('');
@@ -38,15 +39,34 @@ function App() {
 	}
 
 	function 새로운글추가() {
+		// 응용1. 글에 아무것도 입력안하고 발행버튼 누르는 경우 막기
+		if (입력값 === '') return;
 		let copy = [입력값, ...글제목];
 		set글제목(copy);
-		set입력값('');
+		// 응용2. 따봉기록공간 추가
+		let copy2 = [0, ...따봉];
+		set따봉(copy2);
+		// 응용3. 날짜 추가
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = today.getMonth() + 1;
+		let day = today.getDate();
+		let copy3 = [`${year}.${month}.${day}`, ...날짜];
+		set날짜(copy3);
 	}
 
 	function 이글삭제(i) {
 		let copy = [...글제목];
 		copy = copy.filter((v, idx) => idx !== i);
 		set글제목(copy);
+		// 응용2. 따봉기록공간 삭제
+		let copy2 = [...따봉];
+		copy2 = copy2.filter((v, idx) => idx !== i);
+		set따봉(copy2);
+		// 응용3. 날짜 삭제
+		let copy3 = [...날짜];
+		copy3 = copy3.filter((v, idx) => idx !== i);
+		set날짜(copy3);
 	}
 
 	return (
@@ -107,7 +127,8 @@ function App() {
 									삭제
 								</button>
 							</h4>
-							<p>9월 17일 발행</p>
+							{/* 응용3. 날짜 데이터 추가 */}
+							<p>{날짜[i]} 발행</p>
 						</div>
 					);
 				})
