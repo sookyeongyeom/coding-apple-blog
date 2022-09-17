@@ -36,8 +36,8 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-			<div className="black-nav">
+		<div className='App'>
+			<div className='black-nav'>
 				<h4>React Blog</h4>
 			</div>
 			{/* 데이터바인딩 */}
@@ -67,8 +67,8 @@ function App() {
 				//
 				글제목.map((v, i) => {
 					return (
-						<div className="list" key={i}>
-							<h4>
+						<div className='list' key={i}>
+							<h4 onClick={() => setModal(!modal)}>
 								{v} <span onClick={() => 좋아요(i)}>🧡</span> {따봉[i]}
 							</h4>
 							<p>2월 17일 발행</p>
@@ -79,27 +79,28 @@ function App() {
 
 			{
 				//
-				modal ? <Modal /> : null
+				modal ? <Modal 글제목={글제목} color='orange' 남자코트로변경={남자코트로변경} /> : null
 			}
 		</div>
 	);
 }
 
-function List() {
-	return (
-		<div className="list">
-			<h4>제목</h4>
-			<p>2월 17일 발행</p>
-		</div>
-	);
-}
+// function List() {
+// 	return (
+// 		<div className="list">
+// 			<h4>제목</h4>
+// 			<p>2월 17일 발행</p>
+// 		</div>
+// 	);
+// }
 
-function Modal() {
+function Modal(props) {
 	return (
-		<div className="modal">
-			<h4>제목</h4>
+		<div className='modal' style={{ background: props.color }}>
+			<h4>{props.글제목[0]}</h4>
 			<p>날짜</p>
 			<p>상세내용</p>
+			<button onClick={props.남자코트로변경}>글수정</button>
 		</div>
 	);
 }
