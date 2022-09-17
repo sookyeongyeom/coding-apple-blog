@@ -16,6 +16,7 @@ function App() {
 	let [따봉, set따봉] = useState([0, 0, 0]);
 	let [modal, setModal] = useState(false);
 	let [title, setTitle] = useState(0);
+	let [입력값, set입력값] = useState('');
 
 	function 좋아요(i) {
 		let copy = [...따봉];
@@ -33,6 +34,18 @@ function App() {
 	function 글제목정렬() {
 		let copy = [...글제목];
 		copy.sort();
+		set글제목(copy);
+	}
+
+	function 새로운글추가() {
+		let copy = [입력값, ...글제목];
+		set글제목(copy);
+		set입력값('');
+	}
+
+	function 이글삭제(i) {
+		let copy = [...글제목];
+		copy = copy.filter((v, idx) => idx !== i);
 		set글제목(copy);
 	}
 
@@ -63,7 +76,6 @@ function App() {
 				<h4 onClick={() => setModal(!modal)}>{글제목[2]}</h4>
 				<p>2월 17일 발행</p>
 			</div> */}
-
 			{
 				//
 				글제목.map((v, i) => {
@@ -75,14 +87,37 @@ function App() {
 									setTitle(i);
 								}}
 							>
-								{v} <span onClick={() => 좋아요(i)}>🧡</span> {따봉[i]}
+								{v}{' '}
+								<span
+									onClick={e => {
+										// 상위 html로 퍼지는 이벤트버블링 막기
+										e.stopPropagation();
+										좋아요(i);
+									}}
+								>
+									🧡
+								</span>{' '}
+								{따봉[i]}{' '}
+								<button
+									onClick={e => {
+										e.stopPropagation();
+										이글삭제(i);
+									}}
+								>
+									삭제
+								</button>
 							</h4>
-							<p>2월 17일 발행</p>
+							<p>9월 17일 발행</p>
 						</div>
 					);
 				})
 			}
-
+			<input
+				onChange={e => {
+					set입력값(e.target.value);
+				}}
+			/>{' '}
+			<button onClick={새로운글추가}>추가</button>
 			{
 				//
 				modal ? (
